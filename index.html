@@ -1208,10 +1208,17 @@ const phases=[
 ]}
 ];
 
+
 let sel={p:0,w:0};
 let tabRes={};
 let open={};
 let chk={};
+
+// Load checklist state from localStorage
+try {
+  const savedChk = localStorage.getItem('django_study_chk');
+  if (savedChk) chk = JSON.parse(savedChk);
+} catch (e) { chk = {}; }
 
 function render(){renderSb();renderMn();}
 
@@ -1290,8 +1297,13 @@ function go(pi,wi){sel={p:pi,w:wi};render();}
 function setTab(isRes){tabRes[`${sel.p}-${sel.w}`]=isRes;renderMn();}
 function togDay(dk){open[dk]=!open[dk];renderMn();}
 
+
 function tick(tk){
   chk[tk]=!chk[tk];
+  // Save checklist state to localStorage
+  try {
+    localStorage.setItem('django_study_chk', JSON.stringify(chk));
+  } catch (e) {}
   const c=document.getElementById('c'+tk);
   const x=document.getElementById('x'+tk);
   if(c){c.className='tcb'+(chk[tk]?' ok':'');c.textContent=chk[tk]?'✓':'';}
