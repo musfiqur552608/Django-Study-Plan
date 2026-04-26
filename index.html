@@ -1,0 +1,1320 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Django & DRF 19-Week Master Roadmap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #f7f8fa;
+      --color-bg-dark: #23272f;
+      --color-primary: #4f46e5;
+      --color-secondary: #64748b;
+      --color-accent: #22d3ee;
+      --color-success: #22c55e;
+      --color-danger: #ef4444;
+      --color-border: #e5e7eb;
+      --color-card: #fff;
+      --color-card-dark: #18181b;
+      --color-shadow: rgba(0,0,0,0.06);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 7px;
+      --font-main: 'Inter', Arial, sans-serif;
+    }
+    html, body {
+      background: var(--color-bg);
+      font-family: var(--font-main);
+      color: #23272f;
+      min-height: 100vh;
+    }
+    .header-bar {
+      width: 100vw;
+      background: var(--color-primary);
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      padding: 1.1rem 0 1.1rem 2.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 12px var(--color-shadow);
+      border-bottom-left-radius: var(--radius-lg);
+      border-bottom-right-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .header-bar .logo {
+      width: 2.2rem;
+      height: 2.2rem;
+      background: var(--color-accent);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--color-primary);
+      margin-right: 0.7rem;
+      box-shadow: 0 2px 8px var(--color-shadow);
+    }
+    .app {
+      display: flex;
+      gap: 24px;
+      padding: 0 2.5rem 2.5rem 2.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .sb {
+      width: 220px;
+      flex-shrink: 0;
+      border: none;
+      border-radius: var(--radius-lg);
+      background: var(--color-card);
+      box-shadow: 0 2px 16px var(--color-shadow);
+      overflow: hidden;
+      align-self: flex-start;
+      max-height: 88vh;
+      overflow-y: auto;
+      position: sticky;
+      top: 0;
+      transition: box-shadow 0.2s;
+    }
+    .sb-ph {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .09em;
+      padding: 10px 18px 6px;
+      color: var(--color-secondary);
+      background: #f1f5f9;
+      text-transform: uppercase;
+      border-top: 1px solid var(--color-border);
+    }
+    .sb-ph:first-child { border-top: none; }
+    .sb-w {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      font-size: 13px;
+      color: var(--color-secondary);
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      border-top: 1px solid var(--color-border);
+      width: 100%;
+      text-align: left;
+      line-height: 1.3;
+      transition: background 0.15s, color 0.15s;
+    }
+    .sb-w:hover, .sb-w.on {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+    .sb-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .mn {
+      flex: 1;
+      min-width: 0;
+      background: var(--color-card);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 2px 16px var(--color-shadow);
+      padding: 2.5rem 2.5rem 2rem 2.5rem;
+      margin-bottom: 2rem;
+    }
+    .hd {
+      margin-bottom: 18px;
+    }
+    .hd-top {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .hd-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 5px;
+    }
+    .hd-goal {
+      font-size: 1.1rem;
+      color: var(--color-secondary);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .hd-pb {
+      height: 6px;
+      background: #e0e7ef;
+      border-radius: 3px;
+      margin-bottom: 4px;
+    }
+    .hd-pf {
+      height: 100%;
+      border-radius: 3px;
+      transition: width .3s;
+    }
+    .hd-stat {
+      font-size: 13px;
+      color: var(--color-secondary);
+      margin-top: 6px;
+    }
+    .badge {
+      font-size: 11px;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      background: var(--color-accent);
+      color: var(--color-primary);
+      margin-right: 6px;
+    }
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: 18px;
+      gap: 0;
+    }
+    .tab {
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--color-secondary);
+      border: none;
+      background: transparent;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.15s, border-bottom 0.15s;
+    }
+    .tab.on {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+    }
+    .days {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .dc {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-card);
+      box-shadow: 0 1px 6px var(--color-shadow);
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+      transition: box-shadow 0.18s;
+    }
+    .dh {
+      display: flex;
+      align-items: center;
+      padding: 14px 20px;
+      gap: 16px;
+      cursor: pointer;
+      background: #f1f5f9;
+      user-select: none;
+      font-size: 1.08rem;
+      font-weight: 500;
+      color: var(--color-primary);
+    }
+    .dn {
+      font-size: 1.08rem;
+      font-weight: 700;
+      width: 44px;
+      flex-shrink: 0;
+      color: var(--color-primary);
+    }
+    .df {
+      font-size: 1.08rem;
+      color: var(--color-secondary);
+      flex: 1;
+    }
+    .dok {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-success);
+    }
+    .db {
+      display: none;
+      padding: 16px 22px;
+      border-top: 1px solid var(--color-border);
+      background: #f9fafb;
+    }
+    .task {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .task:last-child { margin-bottom: 0; }
+    .tcb {
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid var(--color-border);
+      border-radius: 5px;
+      flex-shrink: 0;
+      cursor: pointer;
+      background: #fff;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-success);
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .tcb.ok {
+      background: var(--color-success);
+      border-color: var(--color-success);
+      color: #fff;
+    }
+    .ttype {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      background: #e0e7ef;
+      color: var(--color-primary);
+    }
+    .tw { background: #E1F5EE; color: #085041; }
+    .tp { background: #EEEDFE; color: #3C3489; }
+    .tb { background: #FAEEDA; color: #633806; }
+    .tr { background: #E6F1FB; color: #0C447C; }
+    .tv { background: #FAECE7; color: #712B13; }
+    .tbody { flex: 1; min-width: 0; }
+    .ttext {
+      font-size: 1.08rem;
+      color: var(--color-secondary);
+      line-height: 1.6;
+      transition: opacity 0.15s;
+    }
+    .ttext.ok {
+      text-decoration: line-through;
+      opacity: .5;
+    }
+    .tlinks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 7px;
+    }
+    .tlink {
+      font-size: 12px;
+      color: var(--color-primary);
+      text-decoration: none;
+      padding: 3px 12px;
+      border: 1px solid var(--color-primary);
+      border-radius: 12px;
+      background: #f1f5f9;
+      transition: background 0.15s, color 0.15s;
+    }
+    .tlink:hover {
+      background: var(--color-primary);
+      color: #fff;
+    }
+    .vnew, .v5 {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 6px;
+      vertical-align: middle;
+      background: #D1FAE5;
+      color: #065F46;
+    }
+    .v5 {
+      background: #FEF3C7;
+      color: #92400E;
+    }
+    .res {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .rs-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--color-secondary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .rs-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--color-border);
+    }
+    .rg {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .rc {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      background: var(--color-card);
+      box-shadow: 0 1px 6px var(--color-shadow);
+      transition: box-shadow 0.18s;
+    }
+    .rc-type {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--color-secondary);
+      margin-bottom: 4px;
+    }
+    .rc-name {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 4px;
+    }
+    .rc-desc {
+      font-size: 13px;
+      color: var(--color-secondary);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    .rc a {
+      font-size: 13px;
+      color: var(--color-accent);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.15s;
+    }
+    .rc a:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+    .tip-box {
+      background: var(--color-accent);
+      border: 1px solid var(--color-accent);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      font-size: 1.08rem;
+      color: var(--color-primary);
+      line-height: 1.7;
+      margin-top: 8px;
+      box-shadow: 0 1px 6px var(--color-shadow);
+    }
+    @media (max-width: 900px) {
+      .app { flex-direction: column; padding: 0 1rem; }
+      .sb { width: 100%; max-width: 100vw; position: static; }
+      .mn { padding: 1.2rem 1rem; }
+    }
+    @media (max-width: 600px) {
+      .header-bar { font-size: 1rem; padding: 0.7rem 0 0.7rem 1rem; }
+      .app { padding: 0 0.2rem; }
+      .mn { padding: 0.7rem 0.2rem; }
+    }
+  </style>
+*{box-sizing:border-box;margin:0;padding:0}
+.app{display:flex;gap:12px;padding:1.5rem 0}
+.sb{width:192px;flex-shrink:0;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;align-self:flex-start;max-height:88vh;overflow-y:auto;position:sticky;top:0}
+.sb-ph{font-size:9px;font-weight:500;letter-spacing:.08em;padding:7px 10px 4px;color:var(--color-text-secondary);background:var(--color-background-secondary);text-transform:uppercase;border-top:0.5px solid var(--color-border-tertiary)}
+.sb-ph:first-child{border-top:none}
+.sb-w{display:flex;align-items:center;gap:7px;padding:6px 10px;font-size:11px;color:var(--color-text-secondary);cursor:pointer;border:none;background:transparent;border-top:0.5px solid var(--color-border-tertiary);width:100%;text-align:left;line-height:1.3}
+.sb-w:hover{background:var(--color-background-secondary)}
+.sb-w.on{background:var(--color-background-secondary);font-weight:500;color:var(--color-text-primary)}
+.sb-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.mn{flex:1;min-width:0}
+.hd{margin-bottom:12px}
+.hd-top{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.hd-title{font-size:16px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
+.hd-goal{font-size:12px;color:var(--color-text-secondary);line-height:1.5;margin-bottom:8px}
+.hd-pb{height:3px;background:var(--color-border-tertiary);border-radius:2px}
+.hd-pf{height:100%;border-radius:2px;transition:width .3s}
+.hd-stat{font-size:11px;color:var(--color-text-secondary);margin-top:3px}
+.badge{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500}
+.tabs{display:flex;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:12px;gap:0}
+.tab{padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;color:var(--color-text-secondary);border:none;background:transparent;border-bottom:2px solid transparent;margin-bottom:-0.5px}
+.tab.on{color:var(--color-text-primary);border-bottom-color:var(--color-text-primary)}
+.days{display:flex;flex-direction:column;gap:8px}
+.dc{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:var(--color-background-primary);overflow:hidden}
+.dh{display:flex;align-items:center;padding:8px 12px;gap:10px;cursor:pointer;background:var(--color-background-secondary);user-select:none}
+.dn{font-size:12px;font-weight:500;width:36px;flex-shrink:0;color:var(--color-text-primary)}
+.df{font-size:12px;color:var(--color-text-secondary);flex:1}
+.dok{font-size:10px;font-weight:500;color:var(--color-text-success)}
+.db{display:none;padding:10px 12px;border-top:0.5px solid var(--color-border-tertiary)}
+.task{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px}
+.task:last-child{margin-bottom:0}
+.tcb{width:15px;height:15px;border:0.5px solid var(--color-border-secondary);border-radius:3px;flex-shrink:0;cursor:pointer;background:var(--color-background-primary);margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(--color-text-success)}
+.tcb.ok{background:var(--color-background-success);border-color:var(--color-border-success)}
+.ttype{font-size:10px;font-weight:500;padding:2px 6px;border-radius:10px;flex-shrink:0;margin-top:1px}
+.tw{background:#E1F5EE;color:#085041}.tp{background:#EEEDFE;color:#3C3489}.tb{background:#FAEEDA;color:#633806}.tr{background:#E6F1FB;color:#0C447C}.tv{background:#FAECE7;color:#712B13}
+@media(prefers-color-scheme:dark){.tw{background:#085041;color:#9FE1CB}.tp{background:#3C3489;color:#CECBF6}.tb{background:#633806;color:#FAC775}.tr{background:#0C447C;color:#B5D4F4}.tv{background:#712B13;color:#F5C4B3}}
+.tbody{flex:1;min-width:0}
+.ttext{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.ttext.ok{text-decoration:line-through;opacity:.5}
+.tlinks{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.tlink{font-size:11px;color:var(--color-text-info);text-decoration:none;padding:2px 8px;border:0.5px solid var(--color-border-info);border-radius:10px}
+.tlink:hover{background:var(--color-background-info)}
+.vnew{font-size:9px;font-weight:500;padding:1px 5px;border-radius:8px;background:#D1FAE5;color:#065F46;margin-left:4px;vertical-align:middle}
+.v5{font-size:9px;font-weight:500;padding:1px 5px;border-radius:8px;background:#FEF3C7;color:#92400E;margin-left:4px;vertical-align:middle}
+.res{display:flex;flex-direction:column;gap:16px}
+.rs-title{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--color-text-secondary);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.rs-title::after{content:'';flex:1;height:0.5px;background:var(--color-border-tertiary)}
+.rg{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:8px}
+.rc{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 12px;background:var(--color-background-primary)}
+.rc-type{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--color-text-secondary);margin-bottom:3px}
+.rc-name{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
+.rc-desc{font-size:11px;color:var(--color-text-secondary);line-height:1.4;margin-bottom:6px}
+.rc a{font-size:11px;color:var(--color-text-info);text-decoration:none}
+.rc a:hover{text-decoration:underline}
+.tip-box{background:var(--color-background-info);border:0.5px solid var(--color-border-info);border-radius:var(--border-radius-md);padding:10px 14px;font-size:12px;color:var(--color-text-info);line-height:1.6;margin-top:4px}
+  </style>
+</head>
+<body>
+<div class="header-bar">
+  <span class="logo">DJ</span>
+  Django & DRF 19-Week Master Roadmap
+</div>
+<div class="app">
+  <aside class="sb" id="sb"></aside>
+  <main class="mn" id="mn"></main>
+</div>
+<script>
+const L=(label,url)=>[label,url];
+const W=(text,...links)=>({t:'Watch',c:'tw',text,links});
+const R=(text,...links)=>({t:'Read',c:'tr',text,links});
+const P=(text,...links)=>({t:'Practice',c:'tp',text,links});
+const B=(text,...links)=>({t:'Build',c:'tb',text,links});
+const V=(text)=>({t:'Review',c:'tv',text,links:[]});
+
+const U={
+  bb:'https://www.youtube.com/@BugBytes',
+  va:'https://www.youtube.com/@veryacademy/playlists',
+  di:'https://www.youtube.com/@DennisIvy',
+  cs:'https://www.youtube.com/playlist?list=PL-osiE80TeTtoQCKZ03TU5NvkT-3vDocq',
+  dg:'https://www.youtube.com/watch?v=Rp5vd34d-z4',
+  twt:'https://www.youtube.com/@TechWithTim',
+  nn:'https://www.youtube.com/@NetNinja',
+  nn_ch:'https://www.youtube.com/playlist?list=PL4cUxeGkcC9iK6Qhn-QLcXCXPQUov1U7f',
+  cs_oop:'https://www.youtube.com/playlist?list=PL-osiE80TeTsqhIuOqKhwlXsIBIdSeYtc',
+  cs_dec:'https://www.youtube.com/watch?v=FsAPt_9Bf3U',
+  cs_venv:'https://www.youtube.com/watch?v=Kg1Yvry_Ydk',
+  cs_git:'https://www.youtube.com/watch?v=HVsySz-h9r4',
+  cs_sql:'https://www.youtube.com/watch?v=pd-0G0MigUA',
+  cs_dj1:'https://www.youtube.com/watch?v=UmljXZIypDc',
+  nn_bs5:'https://www.youtube.com/playlist?list=PL4cUxeGkcC9joIM91nLzd_qaH_AimmdAR',
+  tm_http:'https://www.youtube.com/watch?v=iYM2zFP3Zn0',
+  dg_html:'https://www.youtube.com/watch?v=kUMe1FH4CHE',
+  drf25:'https://www.youtube.com/watch?v=lyEwtBiyESM',
+  drf24:'https://www.youtube.com/watch?v=z9mfiuZ6tik',
+  drf24pl:'https://www.youtube.com/playlist?list=PLqLTqbslLUTcXTAPOl8T_20-tvle-YQ7J',
+  drf25d:'https://www.youtube.com/watch?v=Mj3dGdBdiO4',
+  di_cu:'https://www.youtube.com/watch?v=Ae7nc1EGv-A',
+  di_jwt:'https://www.youtube.com/watch?v=Uyei2iDA4Hs',
+  dj52:'https://docs.djangoproject.com/en/5.2/',
+  dj51r:'https://docs.djangoproject.com/en/5.1/releases/5.1/',
+  dj52r:'https://docs.djangoproject.com/en/5.2/releases/5.2/',
+  dj50r:'https://docs.djangoproject.com/en/5.0/releases/5.0/',
+  dj_url:'https://docs.djangoproject.com/en/5.2/topics/http/urls/',
+  dj_orm:'https://docs.djangoproject.com/en/5.2/ref/models/querysets/',
+  dj_cbv:'https://docs.djangoproject.com/en/5.2/topics/class-based-views/',
+  dj_sig:'https://docs.djangoproject.com/en/5.2/topics/signals/',
+  dj_cache:'https://docs.djangoproject.com/en/5.2/topics/cache/',
+  dj_test:'https://docs.djangoproject.com/en/5.2/topics/testing/',
+  dj_mw:'https://docs.djangoproject.com/en/5.2/topics/http/middleware/',
+  dj_async:'https://docs.djangoproject.com/en/5.2/topics/async/',
+  dj_deploy:'https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/',
+  dj_opt:'https://docs.djangoproject.com/en/5.2/topics/db/optimization/',
+  dj_sec:'https://docs.djangoproject.com/en/5.2/topics/security/',
+  dj_forms:'https://docs.djangoproject.com/en/5.2/ref/forms/',
+  dj_admin:'https://docs.djangoproject.com/en/5.2/ref/contrib/admin/',
+  dj_mgmt:'https://docs.djangoproject.com/en/5.2/howto/custom-management-commands/',
+  dj_src:'https://github.com/django/django',
+  drf_main:'https://www.django-rest-framework.org/',
+  drf_ser:'https://www.django-rest-framework.org/api-guide/serializers/',
+  drf_views:'https://www.django-rest-framework.org/api-guide/views/',
+  drf_auth:'https://www.django-rest-framework.org/api-guide/authentication/',
+  drf_perm:'https://www.django-rest-framework.org/api-guide/permissions/',
+  drf_thr:'https://www.django-rest-framework.org/api-guide/throttling/',
+  drf_pag:'https://www.django-rest-framework.org/api-guide/pagination/',
+  drf_flt:'https://www.django-rest-framework.org/api-guide/filtering/',
+  drf_test:'https://www.django-rest-framework.org/api-guide/testing/',
+  drf_src:'https://github.com/encode/django-rest-framework/blob/master/rest_framework/generics.py',
+  jwt:'https://django-rest-framework-simplejwt.readthedocs.io/',
+  spec:'https://drf-spectacular.readthedocs.io/',
+  celery:'https://docs.celeryq.dev/en/stable/django/first-steps-with-django.html',
+  cbeat:'https://django-celery-beat.readthedocs.io/',
+  flower:'https://flower.readthedocs.io/',
+  ch:'https://channels.readthedocs.io/en/stable/',
+  ch_layers:'https://channels.readthedocs.io/en/stable/topics/channel_layers.html',
+  pytest_dj:'https://pytest-django.readthedocs.io/',
+  ccbv:'https://ccbv.co.uk',
+  cdrf:'https://www.cdrf.co/',
+  pep8:'https://peps.python.org/pep-0008/',
+  py_docs:'https://docs.python.org/3/tutorial/classes.html',
+  mdn_http:'https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview',
+  bs5:'https://getbootstrap.com/docs/5.3/layout/grid/',
+  dt:'https://django-debug-toolbar.readthedocs.io/',
+  d_redis:'https://github.com/jazzband/django-redis',
+  wn:'https://whitenoise.evans.io/',
+  gunicorn:'https://docs.gunicorn.org/',
+  certbot:'https://certbot.eff.org/',
+  sentry:'https://docs.sentry.io/platforms/python/integrations/django/',
+  gh_ci:'https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-python',
+  decouple:'https://github.com/HBNetwork/python-decouple',
+  locust:'https://locust.io/',
+  learndjango:'https://learndjango.com/',
+  testdriven:'https://testdriven.io/blog/topics/django/',
+  realpython:'https://realpython.com/tutorials/django/',
+  djangonews:'https://django-news.com/',
+  forum:'https://forum.djangoproject.com/',
+  cosmic:'https://www.cosmicpython.com/',
+  tdd_book:'https://www.obeythetestinggoat.com/',
+  book_djb:'https://learndjango.com/books/',
+  book_djp:'https://learndjango.com/books/',
+  book_dja:'https://learndjango.com/books/',
+  book_2s:'https://www.feldroy.com/books/two-scoops-of-django-3-x',
+  book_fluent:'https://www.oreilly.com/library/view/fluent-python-2nd/9781492056348/',
+  book_automate:'https://automatetheboringstuff.com/',
+  book_highperf:'https://highperformancedjango.com/',
+  ccbv_src:'https://ccbv.co.uk'
+};
+
+const RES={
+  p0:{
+    books:[
+      {type:'Book',name:'Fluent Python 2nd Ed.',desc:'Luciano Ramalho. Deep Python mastery — data model, iterators, OOP, async. Required reading.',url:U.book_fluent},
+      {type:'Book',name:'Automate the Boring Stuff',desc:'Al Sweigart. Free online. Practical Python foundation — files, CSV, JSON, web scraping.',url:U.book_automate}
+    ],
+    docs:[
+      {type:'Docs',name:'Python 3.12 Official Tutorial',desc:'The canonical reference — read chapters 4, 5, 9: data structures, modules, classes.',url:U.py_docs},
+      {type:'Docs',name:'PEP 8 Style Guide',desc:'The Python code style bible. You will write production Django code from Week 3.',url:U.pep8},
+      {type:'Docs',name:'PyPA: pyproject.toml Guide',desc:'Modern Python packaging. Every 2024+ project uses pyproject.toml instead of setup.py.',url:'https://packaging.python.org/en/latest/guides/writing-pyproject-toml/'}
+    ],
+    sites:[
+      {type:'Site',name:'Real Python — Python OOP',desc:'Comprehensive, modern OOP tutorials with exercises and quizzes.',url:'https://realpython.com/python3-object-oriented-programming/'},
+      {type:'Site',name:'Python Discord',desc:'Active community. Get help instantly when stuck on decorators or OOP.',url:'https://pythondiscord.com/'}
+    ]
+  },
+  p1:{
+    books:[
+      {type:'Book',name:'Django for Beginners (5th Ed.)',desc:'William Vincent. Updated for Django 4.2/5.x. The best structured beginner book. Buy first.',url:U.book_djb},
+      {type:'Book',name:'Two Scoops of Django 3.x',desc:'Feldroy. Industry best-practices bible. Read alongside tutorials from Week 3.',url:U.book_2s}
+    ],
+    docs:[
+      {type:'Docs',name:'Django 5.2 Official Docs',desc:'Always use v5.2 docs — never older. db_default, generated fields, async CBVs.',url:U.dj52},
+      {type:'Docs',name:'Django 5.1 Release Notes',desc:'LoginRequiredMiddleware, async CBVs, admin facet filters. All significant new features.',url:U.dj51r},
+      {type:'Docs',name:'Django 5.2 Release Notes',desc:'Composite PKs, JSONField improvements. Latest stable release April 2025.',url:U.dj52r},
+      {type:'Docs',name:'CCBV — Classy CBVs',desc:'Visual class-based view reference. Essential for understanding CBV inheritance chain.',url:U.ccbv}
+    ],
+    sites:[
+      {type:'Site',name:'LearnDjango.com',desc:'William Vincent. Tutorials always updated for the latest Django version. Best companion site.',url:U.learndjango},
+      {type:'Site',name:'TestDriven.io — Django',desc:'Project-based TDD tutorials. The best for production-grade Django patterns.',url:U.testdriven},
+      {type:'Site',name:'Django Forum',desc:'Official forum. Better Django-specific answers than Stack Overflow.',url:U.forum},
+      {type:'Site',name:'Django News (Weekly)',desc:"William Vincent's weekly digest — newest tutorials, packages, jobs. Subscribe immediately.",url:U.djangonews}
+    ]
+  },
+  p2:{
+    books:[
+      {type:'Book',name:'Django for APIs (3rd Ed.)',desc:'William Vincent. DRF from scratch with JWT, testing, deployment. The definitive DRF book.',url:U.book_dja},
+      {type:'Book',name:'Django for Professionals (4th Ed.)',desc:'William Vincent. Docker, PostgreSQL, Stripe, production deployment — essential.',url:U.book_djp}
+    ],
+    docs:[
+      {type:'Docs',name:'DRF Official Docs (v3.15)',desc:'Read EVERY page in the API Guide. The docs are exceptional and complete.',url:U.drf_main},
+      {type:'Docs',name:'Classy DRF (cdrf.co)',desc:'Visual ViewSet + mixin reference. Like CCBV but for DRF. Bookmark it.',url:U.cdrf},
+      {type:'Docs',name:'SimpleJWT Docs',desc:'Standard JWT library for DRF. Token types, settings, blacklisting, custom claims.',url:U.jwt},
+      {type:'Docs',name:'drf-spectacular Docs',desc:'Standard OpenAPI 3.0 schema generator for DRF in 2025. Replaces drf-yasg.',url:U.spec}
+    ],
+    sites:[
+      {type:'Site',name:'TestDriven.io — DRF',desc:'Best project-based DRF tutorials including JWT auth, testing, Docker.',url:'https://testdriven.io/blog/topics/drf/'},
+      {type:'Site',name:'LearnDjango.com APIs',desc:'Will Vincent DRF tutorials, always current with latest DRF version.',url:U.learndjango}
+    ]
+  },
+  p3:{
+    books:[
+      {type:'Book',name:'Architecture Patterns with Python',desc:'Percival & Gregory. DDD, CQRS, event-driven Django. Fully free online at cosmicpython.com.',url:U.cosmic},
+      {type:'Book',name:'TDD with Python (Goat Book)',desc:'Harry Percival. TDD with Django from scratch. Free online at obeythetestinggoat.com.',url:U.tdd_book},
+      {type:'Book',name:'High Performance Django',desc:'Peter Baumgartner. Scaling, caching, Celery, query optimization for production.',url:U.book_highperf}
+    ],
+    docs:[
+      {type:'Docs',name:'Django Async Docs',desc:'Django 4.1+ async views, ORM, middleware. Major architectural direction for Django.',url:U.dj_async},
+      {type:'Docs',name:'Celery + Django First Steps',desc:'Official Celery guide for Django — broker, workers, tasks, autodiscover.',url:U.celery},
+      {type:'Docs',name:'Django Channels 4.x Docs',desc:'Official ASGI/WebSocket documentation for Django Channels.',url:U.ch},
+      {type:'Docs',name:'pytest-django Docs',desc:'Official pytest plugin — markers, db access, fixtures, factory_boy integration.',url:U.pytest_dj}
+    ],
+    sites:[
+      {type:'Site',name:'BugBytes YouTube',desc:'Best channel for modern Django 5.x: ORM internals, HTMX, testing, async. Short focused videos.',url:U.bb},
+      {type:'Site',name:'TestDriven.io — Celery',desc:'Best Celery + Django + Redis tutorials with Docker.',url:'https://testdriven.io/blog/topics/celery/'}
+    ]
+  },
+  p4:{
+    books:[
+      {type:'Book',name:'Django for Professionals (4th Ed.)',desc:'Docker, PostgreSQL, env management, production deployment — the complete guide.',url:U.book_djp}
+    ],
+    docs:[
+      {type:'Docs',name:'Django Deployment Checklist',desc:'Official checklist. Run python manage.py check --deploy before every production deploy.',url:U.dj_deploy},
+      {type:'Docs',name:'WhiteNoise Docs',desc:'Simplest production static files. CompressedManifestStaticFilesStorage for cache-busting.',url:U.wn},
+      {type:'Docs',name:'Gunicorn Configuration Docs',desc:'Worker types, timeout, max_requests. Rule: workers = (2 × CPU cores) + 1.',url:U.gunicorn},
+      {type:'Docs',name:'GitHub Actions — Python CI',desc:'Official guide for Django CI/CD pipelines with GitHub Actions.',url:U.gh_ci},
+      {type:'Docs',name:'Sentry Django Integration',desc:'Error monitoring, performance, release tracking. Essential in production.',url:U.sentry}
+    ],
+    sites:[
+      {type:'Site',name:'TestDriven.io — Docker + Django',desc:'Best Dockerizing Django + Postgres + Gunicorn + Nginx tutorial on the internet.',url:'https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/'}
+    ]
+  }
+};
+
+const TIPS=[
+  'Finish Phase 0 in 2 weeks maximum. If you are slow — write more code, not more tutorials. Build the CLI project before moving on.',
+  'Always use Django 5.2 docs, never 3.x or 4.x. LoginRequiredMiddleware, db_default, async CBVs, and generated fields are significant Django 5 improvements. Build the capstone from memory — this is the most critical exercise in Phase 1.',
+  'Read the DRF official docs alongside every video. They are exceptionally well-written. Use drf-spectacular from Day 1 — OpenAPI docs are non-negotiable in any production API.',
+  'Stop watching tutorials after Week 13. Read the Django source code instead — pick any contrib module and read 200 lines. Apply everything directly to Bavaria ERP — you have the ideal live codebase.',
+  'Set up the full Docker + Nginx + Gunicorn stack from Week 17 Day 1. Test with DEBUG=False throughout. If something only breaks in production, you will find it here.'
+];
+
+const phases=[
+{id:'p0',label:'Phase 0 — Prerequisites',dot:'#378ADD',tb:'#E6F1FB',tt:'#0C447C',res:RES.p0,weeks:[
+  {w:1,topic:'Python OOP + Dev Setup',goal:'Master Python OOP, decorators, venv, Git — all used internally by Django',ver:'Python 3.12+',days:[
+    {d:'Mon',focus:'Python OOP fundamentals',tasks:[
+      W('Corey Schafer — Python OOP Ep 1–4: classes, inheritance, classmethods, staticmethods, properties',L('YouTube Playlist',U.cs_oop)),
+      P('Write 3 classes: Animal → Dog → Labrador. Add __str__, __repr__, @property, @classmethod from_string'),
+      R('Python 3 tutorial — chapters 9.1–9.6: classes, scopes, inheritance, private variables',L('Python Docs',U.py_docs))
+    ]},
+    {d:'Tue',focus:'Decorators + context managers',tasks:[
+      W('Corey Schafer — Python Decorators (18 min)',L('YouTube',U.cs_dec)),
+      P('Write @timing, @retry(n), @requires_auth decorators. Context manager using __enter__/__exit__'),
+      B('Project: @memoize decorator + FileLogger context manager that writes timestamped calls to .log file')
+    ]},
+    {d:'Wed',focus:'Virtual environments + modern packaging',tasks:[
+      W('Corey Schafer — Python Virtual Environments',L('YouTube',U.cs_venv)),
+      P('Create venv, install requests + rich + ruff, freeze requirements.txt, deactivate, re-activate'),
+      R('PyPA guide: pyproject.toml — modern Python packaging used in every 2024+ Django project',L('PyPA Docs','https://packaging.python.org/en/latest/guides/writing-pyproject-toml/'))
+    ]},
+    {d:'Thu',focus:'Git + GitHub workflow + conventional commits',tasks:[
+      W('Corey Schafer — Git Tutorial for Beginners',L('YouTube',U.cs_git)),
+      P('Init repo, 5 commits using conventional format (feat:, fix:, docs:), feature branch, merge with --no-ff'),
+      B('Set up: .gitignore (Python template), .editorconfig, pre-commit config with ruff + black hooks')
+    ]},
+    {d:'Fri',focus:'CLI project + code quality',tasks:[
+      B('CLI task manager: add/list/complete/delete, JSON persistence, OOP design, @decorator for auth check'),
+      R('PEP 8 style guide — install ruff, run on your project, fix every warning before proceeding',L('PEP 8',U.pep8)),
+      V('Push to GitHub with README. Self-test: explain every line without notes. Gaps → rewatch before Phase 1')
+    ]}
+  ]},
+  {w:2,topic:'Web Foundations + SQL + Tooling',goal:'Master HTTP, HTML/CSS, SQL — the three layers Django sits directly on top of',ver:'HTTP 1.1/2, SQL',days:[
+    {d:'Mon',focus:'HTML + CSS for backend developers',tasks:[
+      W('Dave Gray — HTML Full Course: forms, semantic tags, method/action, input types',L('YouTube',U.dg_html)),
+      P('Build 2-page static site: home + contact form. Focus: form fields, POST method, name attributes'),
+      R('MDN: How browsers work — request/response cycle, DNS, TCP, the HTTP transaction',L('MDN',U.mdn_http))
+    ]},
+    {d:'Tue',focus:'HTTP protocol + status codes',tasks:[
+      W('Traversy Media — HTTP Crash Course: verbs, status codes, headers, cookies',L('YouTube',U.tm_http)),
+      P('Python requests: GET from jsonplaceholder.typicode.com, POST with JSON body, inspect all headers'),
+      R('MDN HTTP Status Codes — memorize: 200, 201, 204, 301, 302, 400, 401, 403, 404, 409, 422, 500',L('MDN Status Codes','https://developer.mozilla.org/en-US/docs/Web/HTTP/Status'))
+    ]},
+    {d:'Wed',focus:'SQL + relational databases',tasks:[
+      W('Corey Schafer — SQLite with Python',L('YouTube',U.cs_sql)),
+      P('sqlite3 shell: CREATE TABLE users/posts, INSERT 10 rows, SELECT with WHERE, JOIN, ORDER BY, LIMIT'),
+      B('Python script: parameterized queries (never string formatting!), CRUD operations, context manager for connection')
+    ]},
+    {d:'Thu',focus:'Bootstrap 5 + browser DevTools',tasks:[
+      W('Net Ninja — Bootstrap 5 Crash Course Ep 1–3: grid, navbar, cards, forms',L('YouTube',U.nn_bs5)),
+      P('Rebuild HTML site with Bootstrap: responsive grid, navbar with active states, card components'),
+      R('Bootstrap 5.3 grid system docs — container, row, col-*, breakpoints, offset, order',L('Bootstrap Docs',U.bs5))
+    ]},
+    {d:'Fri',focus:'Full dev environment setup',tasks:[
+      B('Install: Python 3.12, VS Code + Pylance + Ruff, Docker Desktop, pgAdmin 4, Bruno (REST client)'),
+      P('Configure: global .gitconfig (name, email, push default), SSH key for GitHub, base project template folder'),
+      V('Self-quiz: HTTP verbs, 5 SQL JOIN types, Python OOP. Write answers without help. Fix any gaps')
+    ]}
+  ]}
+]},
+{id:'p1',label:'Phase 1 — Django 5.x Core',dot:'#1D9E75',tb:'#E1F5EE',tt:'#085041',res:RES.p1,weeks:[
+  {w:3,topic:'MVT + URLs + Templates',goal:"Django 5.x project anatomy, request/response cycle, and template system",ver:'Django 5.2',days:[
+    {d:'Mon',focus:'Django 5.x install + project anatomy',tasks:[
+      W('Corey Schafer Django Ep 1 — project vs app, manage.py, settings.py deep tour',L('YouTube',U.cs_dj1)),
+      W('Dave Gray — Django Full Course 2024 (setup + structure section, first 40 min)',L('YouTube 2024',U.dg)),
+      P('Create project + 3 apps (blog, users, api). Read every generated file — understand each line completely'),
+      R('Django 5.2 release notes — db_default, generated fields, composite PKs, facet filters',L('Django 5.2 Release',U.dj52r))
+    ]},
+    {d:'Tue',focus:'URL routing + namespacing + reverse()',tasks:[
+      W('Corey Schafer Django Ep 2 — Applications and Routes',L('YouTube','https://www.youtube.com/watch?v=a48xeeo5Vnk')),
+      P('Create 6 URL patterns: int, str, slug, uuid, path converters. Use reverse() and {% url %} for all'),
+      R('Django docs: URL dispatcher — include(), app_name, namespace, reverse(), resolve()',L('Django Docs',U.dj_url))
+    ]},
+    {d:'Wed',focus:'Function-based views + HttpResponse types',tasks:[
+      P('5 FBVs: HttpResponse, render() with context, redirect(), Http404, JsonResponse with status codes'),
+      B('Post list view: pass 5 fake post dicts to template. Verify context with Django Debug Toolbar'),
+      R('LearnDjango.com — views tutorial, updated for Django 5.x',L('LearnDjango',U.learndjango))
+    ]},
+    {d:'Thu',focus:'Templates + inheritance + built-in tags',tasks:[
+      W('Corey Schafer Django Ep 3 — Templates',L('YouTube','https://www.youtube.com/watch?v=qDwdMDQ8oX4')),
+      P('base.html: navbar + footer. home/about/detail with {% extends %}. Use {% block %}, {% include %}'),
+      R('Django template language docs — all built-in filters: truncatewords, date, urlize, linebreaks',L('Django Docs',U.dj52))
+    ]},
+    {d:'Fri',focus:'Mini-project + request cycle mastery',tasks:[
+      B('4-page site: base template, Bootstrap navbar with active link via {% if request.path %}, URL namespacing'),
+      V('Draw the Django request/response cycle on paper from memory without notes: URL conf → view → template → response'),
+      R('TestDriven.io — Django basics article (excellent complement to video tutorials)',L('TestDriven',U.testdriven))
+    ]}
+  ]},
+  {w:4,topic:'Models + ORM + Django 5.x Admin',goal:'Design production models with Django 5 features, master QuerySet API, customize admin',ver:'Django 5.x ORM',days:[
+    {d:'Mon',focus:'Models + migrations + Django 5.x fields',tasks:[
+      W('Corey Schafer Django Ep 5 — Database and Migrations',L('YouTube','https://www.youtube.com/watch?v=aHC3uTkT9r8')),
+      P('Post model: title, body, slug, status (choices), author (FK). Use db_default=Now() — Django 5 feature'),
+      R('Django 5.0 release notes — db_default field option sets DB-level defaults',L('Django 5.0 Release',U.dj50r))
+    ]},
+    {d:'Tue',focus:'ORM QuerySet API + shell\_plus',tasks:[
+      W('BugBytes — Django ORM QuerySet methods explained (2024)',L('YouTube',U.bb)),
+      P('Django shell: .create(), .filter(), .exclude(), .get(), .exists(), .values(), .iterator(), .only()'),
+      R('Django docs: QuerySet API reference — all field lookups: __icontains, __gte, __in, __date, __year',L('Django Docs',U.dj_orm))
+    ]},
+    {d:'Wed',focus:'Relationships + generated fields',tasks:[
+      W('Very Academy — ForeignKey, ManyToMany, OneToOne, related queries',L('YouTube',U.va)),
+      P('Add Category (FK), Tag (M2M). Query: post.tags.all(), category.post_set.all(), related_name reverse'),
+      B('Django 5.x GeneratedField: add word_count = GeneratedField(expression=Length("body"), output_field=IntegerField(), db_persist=True)')
+    ]},
+    {d:'Thu',focus:'Django 5.1 Admin + facet filters',tasks:[
+      W('Very Academy — Advanced Django Admin customization',L('YouTube',U.va)),
+      P('list_display, list_filter, search_fields, prepopulated_fields, date_hierarchy, readonly_fields, actions'),
+      R('Django 5.1: show_facets = ShowFacets.ALWAYS — new facet filter counts in admin list views',L('Django 5.1 Release',U.dj51r))
+    ]},
+    {d:'Fri',focus:'Seed data + ORM fluency',tasks:[
+      B('Management command: seed_db — Faker-generated users, categories, posts. Use get_or_create() properly'),
+      V('Write 10 ORM queries from memory: date range filter, annotate post count per category, Q() for OR'),
+      R('Django docs: Model Meta — ordering, indexes, constraints, verbose_name, unique_together',L('Django Docs',U.dj52))
+    ]}
+  ]},
+  {w:5,topic:'Forms + Auth + Media Files',goal:'Secure form handling, full authentication flow, and file uploads in Django 5',ver:'Django 5.x Auth',days:[
+    {d:'Mon',focus:'Forms + ModelForms + as_div (Django 5)',tasks:[
+      W('Very Academy — Django Forms and ModelForms deep dive',L('YouTube',U.va)),
+      P('ContactForm: name, email, message. Custom clean_email(), cross-field validate(). CSRF protection'),
+      R('Django 5.x: form.as_div() — new built-in rendering method, replaces as_p() in modern templates',L('Django Forms Docs',U.dj_forms))
+    ]},
+    {d:'Tue',focus:'User authentication + LoginRequiredMiddleware',tasks:[
+      W('Corey Schafer Django — User Auth series (register, login, logout, password reset)',L('YouTube',U.cs)),
+      P('Register with UserCreationForm, login/logout built-in views, @login_required, redirect_field_name'),
+      R('Django 5.1: LoginRequiredMiddleware — global login protection, exempt with @login_not_required decorator',L('Django 5.1 Release',U.dj51r))
+    ]},
+    {d:'Wed',focus:'One-time login tokens + password reset',tasks:[
+      P('Full password reset flow with console email backend. Custom password validators (length, complexity)'),
+      B('Django 5.0: one-time tokens — generate_token() for passwordless email sign-in. Implement it fully'),
+      R('Django 5.0 release notes — one-time login tokens for passwordless authentication',L('Django 5.0 Release',U.dj50r))
+    ]},
+    {d:'Thu',focus:'Static + media + ImageField + validation',tasks:[
+      W('Dennis Ivy — Static files and media uploads in Django',L('YouTube',U.di)),
+      P('STATICFILES_DIRS, MEDIA_ROOT, MEDIA_URL configured. Profile model with ImageField. Upload avatar'),
+      B('File validator: reject non-image MIME types. Resize image on save using Pillow before storing')
+    ]},
+    {d:'Fri',focus:'Integration + messages + security test',tasks:[
+      B('Full blog: create post (auth required), list (public), edit (author only), delete, flash messages'),
+      V('Security test: try to edit another user post directly via URL. Try accessing /admin/ without superuser'),
+      R('Django docs: messages framework — levels, storage backends, template rendering',L('Django Docs','https://docs.djangoproject.com/en/5.2/ref/contrib/messages/'))
+    ]}
+  ]},
+  {w:6,topic:'CBVs + Signals + Custom User + Async',goal:'Class-based views, signals, AbstractBaseUser, and Django 5.x async CBVs',ver:'Django 5.x Async',days:[
+    {d:'Mon',focus:'Class-based views — display layer',tasks:[
+      W('Very Academy — CBV series: TemplateView, ListView, DetailView',L('YouTube',U.va)),
+      P('Rewrite: FBV post_list → ListView with paginate_by=10, post_detail → DetailView. Compare line counts'),
+      R('CCBV.co.uk — ListView source: get_queryset(), get_context_data(), paginate_by. Understand the MRO',L('CCBV',U.ccbv))
+    ]},
+    {d:'Tue',focus:'CBVs — editing layer + mixins',tasks:[
+      W('Very Academy — CreateView, UpdateView, DeleteView, LoginRequiredMixin, UserPassesTestMixin',L('YouTube',U.va)),
+      P('All editing views as CBVs with LoginRequiredMixin + UserPassesTestMixin (author-only)'),
+      B('Override: form_valid() auto-sets author, get_success_url() dynamically, get_queryset() filters by user')
+    ]},
+    {d:'Wed',focus:'Django 5.x async class-based views',tasks:[
+      W('BugBytes — Django async views and AsyncLoginRequiredMixin (Django 5.1)',L('YouTube',U.bb)),
+      P('Convert a slow external-API-calling view to async def get(). Use sync_to_async() for ORM inside async'),
+      R('Django 5.1: async class-based views — AsyncLoginRequiredMixin, async def dispatch()',L('Django Async',U.dj_async))
+    ]},
+    {d:'Thu',focus:'Signals + AbstractBaseUser',tasks:[
+      W('Dennis Ivy — AbstractBaseUser Custom User Model — always do this before first migration',L('YouTube',U.di_cu)),
+      P('AbstractBaseUser: email as username, custom UserManager, is_active, is_staff, is_verified'),
+      R('Django docs: signals — dispatch_uid prevents double-firing. Async signal handlers in Django 5.x',L('Django Signals',U.dj_sig))
+    ]},
+    {d:'Fri',focus:'Phase 1 CAPSTONE',tasks:[
+      B('CAPSTONE: Fresh project — AbstractBaseUser, Post+Category+Tag models, full CBV CRUD, auth, admin. NO tutorial open'),
+      V('Django 5.2 docs only. Target: working site in 4–5 hours. Push to GitHub'),
+      V('Code review: N+1 queries? missing __str__? hardcoded URLs? missing Meta class? Fix all before Phase 2')
+    ]}
+  ]}
+]},
+{id:'p2',label:'Phase 2 — DRF 3.15+',dot:'#BA7517',tb:'#FAEEDA',tt:'#633806',res:RES.p2,weeks:[
+  {w:7,topic:'DRF setup + Serializers deep dive',goal:'DRF 3.15 setup, serializer internals, nested serializers, drf-spectacular',ver:'DRF 3.15+',days:[
+    {d:'Mon',focus:'DRF install + browsable API',tasks:[
+      W('DRF Crash Course 2025 Part 1 — setup, serializers, browsable API, Response',L('YouTube 2025',U.drf25)),
+      P('Install DRF 3.15, DEFAULT_AUTHENTICATION_CLASSES, first APIView returning Response() object'),
+      R('DRF Quickstart — read the complete page from start to finish before writing any more code',L('DRF Docs',U.drf_main))
+    ]},
+    {d:'Tue',focus:'Serializer internals + custom validation',tasks:[
+      W('Complete DRF Tutorial 2024 — theory-first, serializer internals explained',L('YouTube 2024',U.drf24)),
+      P('Manual Serializer (NOT ModelSerializer): define every field explicitly. validate_title(min_length=10)'),
+      B('Add to_internal_value() override, to_representation() override. Test both in DRF browsable API')
+    ]},
+    {d:'Wed',focus:'ModelSerializer + nested + writable',tasks:[
+      W('Very Academy — ModelSerializer + nested serializers deep dive',L('YouTube',U.va)),
+      P('PostSerializer (ModelSerializer): extra_kwargs, read_only_fields, source=, SerializerMethodField'),
+      B('Writable nested: POST /posts/ with {tags:[{name}]} creates tags + post atomically. Override create()')
+    ]},
+    {d:'Thu',focus:'Dynamic fields + drf-spectacular',tasks:[
+      P('Dynamic fields serializer: pass ?fields=id,title query param, filter in __init__ — GraphQL-like flexibility'),
+      B('Install drf-spectacular. Add @extend_schema decorator to every view. Visit /swagger-ui/ for full OpenAPI docs'),
+      R('drf-spectacular docs — @extend_schema, response types, auth in schema, Spectacular settings',L('drf-spectacular',U.spec))
+    ]},
+    {d:'Fri',focus:'Production-quality blog API',tasks:[
+      B('Full blog REST API: PostSerializer+CategorySerializer+UserSerializer, all CRUD, drf-spectacular Swagger docs'),
+      P('Test in Bruno: GET list, detail, POST valid+invalid, PATCH, DELETE — verify all error response shapes'),
+      V('Can you explain: Serializer vs ModelSerializer, to_internal_value() vs validate() — write both from memory')
+    ]}
+  ]},
+  {w:8,topic:'Views — APIView → Generics → ViewSets',goal:'Master every level of the DRF view hierarchy. Know exactly when to use each.',ver:'DRF 3.15',days:[
+    {d:'Mon',focus:'APIView — full manual control',tasks:[
+      W('DRF Complete Tutorial 2024 — APIView section',L('YouTube 2024',U.drf24)),
+      P('Manual PostAPIView: get()/post() for list+create. PostDetailView: get/put/patch/delete by pk'),
+      R('DRF docs: APIView — request.data, request.query_params, request.user, Response, status codes',L('DRF Views',U.drf_views))
+    ]},
+    {d:'Tue',focus:'GenericAPIView + Mixin composition',tasks:[
+      W('DRF Full Series 2024 — GenericAPIView and mixins',L('YouTube Playlist',U.drf24pl)),
+      P('PostListCreate: GenericAPIView + ListModelMixin + CreateModelMixin. Understand what each mixin adds'),
+      B('Override get_queryset() to filter by request.user. Override get_serializer_class() based on action type')
+    ]},
+    {d:'Wed',focus:'Concrete generic views + perform hooks',tasks:[
+      P('Use ListCreateAPIView + RetrieveUpdateDestroyAPIView — reduce view code to 4 lines each'),
+      B('perform_create() auto-sets author. perform_update() logs change. perform_destroy() archives instead of hard deletes'),
+      R('DRF source on GitHub — read ListCreateAPIView. Understand exactly how mixins compose via MRO',L('DRF Source',U.drf_src))
+    ]},
+    {d:'Thu',focus:'ViewSets + Routers + @action decorator',tasks:[
+      W('DRF Crash Course 2025 — ViewSets, Routers, @action',L('YouTube 2025',U.drf25)),
+      P('ModelViewSet + DefaultRouter. Compare URL patterns before/after. Understand basename requirement'),
+      B('@action(detail=True, methods=["post"]) for /posts/{id}/publish/ and /posts/{id}/archive/ endpoints')
+    ]},
+    {d:'Fri',focus:'Full refactor + Classy DRF',tasks:[
+      B('Refactor entire blog API: APIView → ModelViewSet + Router. Measure code reduction (target: -70%)'),
+      R('Classy DRF (cdrf.co) — every ViewSet method with source. Bookmark it as permanent reference',L('Classy DRF',U.cdrf)),
+      V('Draw the full DRF view hierarchy from memory: APIView → GenericAPIView → Mixins → Generics → ViewSets')
+    ]}
+  ]},
+  {w:9,topic:'JWT + Permissions + Throttling',goal:'Secure every endpoint with production-grade JWT, custom permissions, and rate limiting',ver:'SimpleJWT 5.3+',days:[
+    {d:'Mon',focus:'Token authentication basics',tasks:[
+      W('DRF Complete Tutorial 2024 — authentication section',L('YouTube 2024',U.drf24)),
+      P('DRF TokenAuth: obtain-auth-token endpoint, Authorization: Token abc123 header in Bruno'),
+      R('DRF docs: Authentication — all built-in classes, global vs per-view DEFAULT_AUTHENTICATION_CLASSES',L('DRF Auth',U.drf_auth))
+    ]},
+    {d:'Tue',focus:'JWT with SimpleJWT 5.3',tasks:[
+      W('Dennis Ivy — SimpleJWT setup, access/refresh flow, token blacklisting',L('YouTube',U.di_jwt)),
+      P('Configure: ACCESS_TOKEN_LIFETIME=5min, REFRESH_TOKEN_LIFETIME=1day, ROTATE_REFRESH_TOKENS=True'),
+      R('SimpleJWT docs — token types, custom claims, TokenBlacklistMiddleware, ALGORITHM settings',L('SimpleJWT Docs',U.jwt))
+    ]},
+    {d:'Wed',focus:'DRF permissions — built-in + custom',tasks:[
+      W('Very Academy — DRF permissions deep dive: built-in + custom + object-level',L('YouTube',U.va)),
+      P('Apply: IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly at view and object level'),
+      R('DRF docs: Permissions — has_permission(), has_object_permission(), DjangoModelPermissions',L('DRF Permissions',U.drf_perm))
+    ]},
+    {d:'Thu',focus:'Object-level permissions + throttling',tasks:[
+      B('IsAuthorOrReadOnly: non-author GET private post → 404 (not 403 — security best practice). Test with 2 users'),
+      P('AnonRateThrottle(10/day), UserRateThrottle(1000/day), custom PostCreateThrottle(5/min)'),
+      R('DRF docs: Throttling — ScopedRateThrottle, custom throttle classes, testing throttling',L('DRF Throttling',U.drf_thr))
+    ]},
+    {d:'Fri',focus:'Full security audit',tasks:[
+      B('Lock down blog API: JWT for writes, read-only anonymous, author-only edit/delete, rate-limited create'),
+      P('Penetration test your own API: IDOR on another user post, JWT replay after blacklist, bypass rate limit — fix all'),
+      V('Document security model: every endpoint with auth required, permission class, throttle class')
+    ]}
+  ]},
+  {w:10,topic:'Pagination + Filtering + Testing + OpenAPI',goal:'Production-ready API: paging, filtering, 85%+ test coverage, Swagger docs',ver:'DRF 3.15',days:[
+    {d:'Mon',focus:'Pagination — all three types',tasks:[
+      W('Very Academy — DRF pagination: PageNumber, LimitOffset, Cursor',L('YouTube',U.va)),
+      P('Try all three pagination types. Understand: PageNumber for browsable, Cursor for real-time feeds'),
+      R('DRF docs: Pagination — custom PageNumberPagination with page_size_query_param, max_page_size',L('DRF Pagination',U.drf_pag))
+    ]},
+    {d:'Tue',focus:'django-filter + search + ordering',tasks:[
+      W('DRF Series 2024 — django-filter + SearchFilter + OrderingFilter integration',L('YouTube Playlist',U.drf24pl)),
+      P('filterset_class with date ranges, status, author, category. SearchFilter on title+body+tags name'),
+      R('DRF docs: Filtering — DjangoFilterBackend, SearchFilter, OrderingFilter, custom filters',L('DRF Filtering',U.drf_flt))
+    ]},
+    {d:'Wed',focus:'pytest + APIClient testing',tasks:[
+      W('Very Academy — testing DRF APIs with pytest-django and APIClient',L('YouTube',U.va)),
+      P('conftest.py: user_factory, post_factory with factory_boy, api_client fixture with force_authenticate'),
+      R('DRF docs: Testing — APIClient, force_authenticate(), credentials(), asserter methods',L('DRF Testing',U.drf_test))
+    ]},
+    {d:'Thu',focus:'Full test coverage + drf-spectacular',tasks:[
+      B('Full test suite: JWT flow, permissions, pagination, filtering. Run pytest --cov — target 85%+'),
+      B('drf-spectacular: @extend_schema on all endpoints. Swagger UI + ReDoc both working and accurate'),
+      R('drf-spectacular docs — customizing schema, authentication in schema, response serializers',L('drf-spectacular',U.spec))
+    ]},
+    {d:'Fri',focus:'Phase 2 CAPSTONE',tasks:[
+      B('CAPSTONE: Task management API — User, Project, Task, Comment models, JWT, IsProjectMember permission. NO tutorial'),
+      B('Requirements: nested serializers, dynamic fields, all 3 filters, drf-spectacular docs, 85%+ coverage'),
+      V('Can you extend it with a new endpoint in 10 minutes from scratch? Time yourself and try')
+    ]}
+  ]}
+]},
+{id:'p3',label:'Phase 3 — Advanced Django',dot:'#7F77DD',tb:'#EEEDFE',tt:'#3C3489',res:RES.p3,weeks:[
+  {w:11,topic:'ORM deep dive + Query optimization',goal:'Eliminate all N+1 problems and write ERP-scale queries. Senior-level knowledge.',ver:'Django 5.x ORM',days:[
+    {d:'Mon',focus:'Django Debug Toolbar + query counting',tasks:[
+      W('BugBytes — Django Debug Toolbar setup and query analysis',L('YouTube',U.bb)),
+      P('Install debug toolbar. Load a list view. Count every SQL query. Understand each one completely'),
+      R('Django Debug Toolbar docs — SQL panel, EXPLAIN, profiling panel, custom panels',L('DDT Docs',U.dt))
+    ]},
+    {d:'Tue',focus:'N+1 elimination with select_related',tasks:[
+      W('BugBytes — the N+1 query problem and select_related explained clearly',L('YouTube',U.bb)),
+      P('Post list with author.username: measure queries BEFORE (20+) vs AFTER select_related (2). Target: 1 query'),
+      R('Django docs: select_related() — only FK and OneToOne. depth parameter. chain multiple',L('Django Docs',U.dj_orm))
+    ]},
+    {d:'Wed',focus:'prefetch_related + Prefetch object',tasks:[
+      W('BugBytes — prefetch_related vs select_related: the definitive comparison',L('YouTube',U.bb)),
+      P('M2M tags: measure without/with prefetch_related. Use Prefetch(queryset=Tag.objects.filter(), to_attr="")'),
+      R('Django docs: Prefetch object — to_attr, filtered queryset, nested prefetch chains',L('Django Docs',U.dj_orm))
+    ]},
+    {d:'Thu',focus:'annotate + F() + Q() + Window functions',tasks:[
+      W('Very Academy — annotate, aggregate, F expressions, Q objects, Window functions',L('YouTube',U.va)),
+      P('Annotate Category with post_count. F() for atomic view increment. Q() for complex OR/AND conditions'),
+      B('Window function: rank authors by post count using Window(expression=Rank(), order_by=F("count").desc())')
+    ]},
+    {d:'Fri',focus:'Bavaria ERP query audit',tasks:[
+      B('Full audit: every ERP page through debug toolbar. Document every endpoint with 10+ SQL calls'),
+      P('Fix 3 worst offenders. Before/after SQL count. Document the fix and estimated performance gain'),
+      R('Django database optimization guide — full page. The most important docs page at senior level',L('Django Docs',U.dj_opt))
+    ]}
+  ]},
+  {w:12,topic:'Caching with Redis + Invalidation',goal:'Cache at every layer — view, query, session — and invalidate correctly without stale data',ver:'Redis 7+',days:[
+    {d:'Mon',focus:'Cache framework + Redis backend',tasks:[
+      W('Very Academy — Django caching: LocMemCache → Redis backend',L('YouTube',U.va)),
+      P('@cache_page(60*15) on post list. Switch to django-redis backend. Verify key in redis-cli monitor'),
+      R('Django cache docs — CACHES setting, all backends, timeout, KEY_PREFIX, VERSION',L('Django Cache',U.dj_cache))
+    ]},
+    {d:'Tue',focus:'Low-level cache API + patterns',tasks:[
+      W('BugBytes — cache.get_or_set, invalidation patterns in Django',L('YouTube',U.bb)),
+      P('cache.set/get/delete/get_or_set/delete_many/incr. Cache expensive aggregation for 5 min'),
+      R('django-redis docs — connection pooling, delete_pattern() for wildcard invalidation',L('django-redis',U.d_redis))
+    ]},
+    {d:'Wed',focus:'Signal-based cache invalidation',tasks:[
+      B('Signal: on Post.save() → invalidate post list cache. On Category.save() → invalidate category cache'),
+      P('Version-based invalidation: bump VERSION in cache key prefix on every deployment'),
+      V('Anti-patterns: cache.clear() in production, thundering herd problem, negative caching — document each')
+    ]},
+    {d:'Thu',focus:'Per-user cache + Redis data structures',tasks:[
+      B('Per-user cache keys: include request.user.id in every key. Test isolation between 2 users'),
+      P('Redis beyond strings: HSET for sessions, ZADD for leaderboards, SETEX for expiring tokens, INCR for counters'),
+      V('Monitor: redis-cli INFO stats — keyspace_hits vs keyspace_misses. Target 90%+ hit rate')
+    ]},
+    {d:'Fri',focus:'Cache Bavaria ERP',tasks:[
+      B('Add Redis caching to Bavaria ERP: dashboard stats (15min TTL), staff list (5min), order counts (1hr)'),
+      P('Write cache tests: mock cache layer, assert .set() called with correct key + timeout, assert invalidation'),
+      V('Measure page load time before/after with debug toolbar. Document all cache keys and TTLs')
+    ]}
+  ]},
+  {w:13,topic:'Celery 5.4 + Redis + Async patterns',goal:'Background tasks, scheduling, error handling — deeply understand your BioTime sync',ver:'Celery 5.4+',days:[
+    {d:'Mon',focus:'Celery setup + first tasks',tasks:[
+      W('Very Academy — Celery + Django Part 1: setup, broker, first task, worker start',L('YouTube',U.va)),
+      P('Install Celery 5.4 + Redis broker. Task: send_welcome_email.delay(user_id). Verify in worker terminal'),
+      R('Celery + Django first steps — CELERY_BROKER_URL, CELERY_RESULT_BACKEND, app.autodiscover_tasks',L('Celery Docs',U.celery))
+    ]},
+    {d:'Tue',focus:'Primitives: chain + group + chord',tasks:[
+      W('Very Academy — Celery chains, groups, chords Part 2',L('YouTube',U.va)),
+      P('Chain: validate_order | process_payment | send_confirmation. Each step receives previous result'),
+      B('group() for parallel import of 50 records. chord() to send summary email when ALL group tasks finish')
+    ]},
+    {d:'Wed',focus:'Celery Beat + django-celery-beat',tasks:[
+      W('Very Academy — Celery Beat + django-celery-beat Part 3',L('YouTube',U.va)),
+      P('crontab(hour=8, minute=0) for daily digest. PeriodicTask model — manage schedules from Django admin'),
+      R('django-celery-beat docs — PeriodicTask, clocked tasks, solar schedules, dynamic task creation',L('celery-beat',U.cbeat))
+    ]},
+    {d:'Thu',focus:'Retries + Flower + error handling',tasks:[
+      W('Very Academy — autoretry_for, max_retries, countdown, Flower monitoring',L('YouTube',U.va)),
+      P('autoretry_for=(requests.Timeout,), max_retries=3, countdown=60 with exponential backoff: 2**self.request.retries'),
+      R('Flower docs — real-time task monitoring, worker stats, API for programmatic access',L('Flower Docs',U.flower))
+    ]},
+    {d:'Fri',focus:'BioTime sync deep review',tasks:[
+      V('Read every line of the Bavaria ERP BioTime sync Celery task. Can you explain broker, worker, retry logic fully now?'),
+      B('Improve sync task: exponential backoff, structured JSON logging, Sentry error capture, timing metrics'),
+      P('Write Celery task test using task.apply() for sync execution. Mock the external HTTP call with responses library')
+    ]}
+  ]},
+  {w:14,topic:'HTMX + Django Channels + WebSockets',goal:'Hypermedia with HTMX and real-time WebSockets — the modern Django 2025 stack',ver:'HTMX 2.x + Channels 4.x',days:[
+    {d:'Mon',focus:'HTMX + Django — hypermedia patterns',tasks:[
+      W('BugBytes — HTMX with Django: hx-get, hx-post, hx-swap, hx-target, hx-trigger',L('YouTube',U.bb)),
+      P('Add HTMX to post list: infinite scroll with hx-get + hx-trigger="revealed". Zero JavaScript written'),
+      B('Live search: input[hx-get="/search/" hx-trigger="keyup delay:300ms"] returns partial template fragment')
+    ]},
+    {d:'Tue',focus:'Django Channels + ASGI setup',tasks:[
+      W('Net Ninja — Django Channels: ASGI setup, consumers, URL routing',L('YouTube',U.nn_ch)),
+      P('Convert project to ASGI in asgi.py. Install channels[daphne] 4.x. Configure ProtocolTypeRouter'),
+      R('Channels 4.x docs: introduction — ASGI vs WSGI, consumer types, scope dict, send/receive',L('Channels Docs',U.ch))
+    ]},
+    {d:'Wed',focus:'WebSocket consumer + channel layers',tasks:[
+      W('Net Ninja — WebsocketConsumer, channel layers with Redis backend',L('YouTube',U.nn_ch)),
+      P('ChatConsumer: connect(), receive(), disconnect(). Add Redis channel layer. Multi-room group broadcast'),
+      R('Channels docs: channel layers — group_add, group_send, group_discard with Redis backend',L('Channel Layers',U.ch_layers))
+    ]},
+    {d:'Thu',focus:'Auth in WebSockets + async consumers',tasks:[
+      W('Very Academy — authenticated WebSocket connections with Django Channels',L('YouTube',U.va)),
+      P('scope["user"] auth. Reject unauthenticated with WebsocketDenied(). Show username in message payload'),
+      B('AsyncWebsocketConsumer for DB queries: async def receive() using database_sync_to_async() wrapper')
+    ]},
+    {d:'Fri',focus:'ERP real-time notification system',tasks:[
+      B('Bavaria ERP: leave approval → Celery task → channel layer → WebSocket → browser toast notification'),
+      P('HTMX + SSE hybrid: live dashboard attendance stats refreshing every 30s using Server-Sent Events'),
+      V('Review + improve existing ERP live chat module. Apply: async consumer, proper JWT-based WS auth')
+    ]}
+  ]},
+  {w:15,topic:'Testing — TDD + pytest + coverage',goal:'TDD workflow, pytest-django mastery, integration tests, 80%+ coverage on ERP',ver:'pytest 8.x',days:[
+    {d:'Mon',focus:'pytest-django + fixtures + factory_boy',tasks:[
+      W('Very Academy — pytest-django: setup, conftest.py, fixtures, marks, factory_boy',L('YouTube',U.va)),
+      P('conftest.py: user fixture (scope=session), PostFactory with factory_boy, api_client with JWT'),
+      R('pytest-django docs — @pytest.mark.django_db, django_db_setup, --reuse-db for speed',L('pytest-django',U.pytest_dj))
+    ]},
+    {d:'Tue',focus:'TDD workflow — red green refactor',tasks:[
+      W('BugBytes — TDD with Django: write failing test first, implement, refactor',L('YouTube',U.bb)),
+      P('TDD: write test for PostSerializer.validate_title(min_length=10) BEFORE writing the validation code'),
+      B('3 complete TDD cycles: slug generation, author permission check, word count annotation — all test-first')
+    ]},
+    {d:'Wed',focus:'View + auth + redirect testing',tasks:[
+      P('Test post_list: 200 status, correct template, context["posts"] has 5 items. Use assertTemplateUsed'),
+      B('Test auth walls: @login_required → 302 to login URL. Authenticated → 200. Non-author edit → 403'),
+      P('@pytest.mark.parametrize to test multiple status codes, invalid form inputs, and edge cases')
+    ]},
+    {d:'Thu',focus:'API tests + mocking + integration',tasks:[
+      P('APIClient: JWT full flow, force_authenticate shortcut, 401/403/404 responses, pagination assertions'),
+      B('Mock: unittest.mock.patch Celery tasks in tests, mock BioTime HTTP call with responses library'),
+      P('Integration test: register → login → create post → edit → delete — full user journey as one test')
+    ]},
+    {d:'Fri',focus:'Coverage + Bavaria ERP tests',tasks:[
+      B('pytest --cov=. --cov-report=html --cov-fail-under=80. Open htmlcov/index.html. Fix every branch'),
+      P('Write 30 tests for Bavaria ERP HR module: model validation, API permissions, Celery task logic'),
+      R('TDD with Python (free) — chapters 1-5 for TDD philosophy from Harry Percival',L('TDD Book',U.tdd_book))
+    ]}
+  ]},
+  {w:16,topic:'Django internals + Architecture',goal:'Service layer, fat models, middleware, admin mastery — think like a senior Django dev',ver:'Django 5.x',days:[
+    {d:'Mon',focus:'Service layer + fat models pattern',tasks:[
+      W('BugBytes — Django service layer, domain logic, thin views',L('YouTube',U.bb)),
+      P('Move 5 complex view functions into model methods, services.py, or utility modules. Views only orchestrate'),
+      R('Architecture Patterns with Python (free online) — Chapter 1: domain model, Chapter 2: repository',L('CosmicPython',U.cosmic))
+    ]},
+    {d:'Tue',focus:'Custom middleware + management commands',tasks:[
+      W('Very Academy — custom middleware + custom management commands',L('YouTube',U.va)),
+      P('Middleware: RequestLoggingMiddleware, CorrelationIDMiddleware (add X-Request-ID to every response)'),
+      R('Django docs: management commands — BaseCommand, add_arguments, self.stdout.write, style.SUCCESS',L('Django Docs',U.dj_mgmt))
+    ]},
+    {d:'Wed',focus:'Advanced admin + inline + custom actions',tasks:[
+      W('Very Academy — advanced Django admin: inlines, bulk actions, custom views',L('YouTube',U.va)),
+      P('PostInline on CategoryAdmin, custom bulk_approve action, conditional list_display columns by permission'),
+      R('Django 5.1 admin docs: show_facets, AdminSite customization, custom change list filters',L('Admin Docs',U.dj_admin))
+    ]},
+    {d:'Thu',focus:'Async in views + sync_to_async patterns',tasks:[
+      W('BugBytes — async Django views, database_sync_to_async, ORM in async context',L('YouTube',U.bb)),
+      P('Async view that calls external API with httpx. Use sync_to_async() around every ORM call'),
+      R('Django async docs — async views, middleware, ASGI deployment, async ORM (Django 4.1+)',L('Django Async',U.dj_async))
+    ]},
+    {d:'Fri',focus:'ERP refactor sprint',tasks:[
+      B('Pick 1 Bavaria ERP module. Apply all Phase 3: service layer, query optimization, caching, 80%+ tests'),
+      V('Code quality run: python manage.py check, ruff ., coverage report. Fix every issue before Phase 4'),
+      R('Read Django source: pick admin or auth contrib module. Read 200 lines. Note the patterns used',L('Django Source',U.dj_src))
+    ]}
+  ]}
+]},
+{id:'p4',label:'Phase 4 — Production',dot:'#D85A30',tb:'#FAECE7',tt:'#712B13',res:RES.p4,weeks:[
+  {w:17,topic:'Docker + PostgreSQL + Settings',goal:'Containerize Django with multi-stage builds, full docker-compose stack, prod settings',ver:'Docker Compose v2',days:[
+    {d:'Mon',focus:'Dockerfile + multi-stage build',tasks:[
+      W('TechWithTim — Docker for Django developers: Dockerfile, build, run',L('YouTube',U.twt)),
+      P('Dockerfile: python:3.12-slim base. Multi-stage: builder (install deps) → runner (copy app). Minimize image size'),
+      B('docker build -t myapp:prod . with target=runner. Compare image sizes: single stage vs multi-stage')
+    ]},
+    {d:'Tue',focus:'docker-compose v2 full stack',tasks:[
+      W('TechWithTim — docker-compose: Django + PostgreSQL + Redis + Celery',L('YouTube',U.twt)),
+      P('docker-compose.yml: web, db (postgres:16-alpine), redis (7-alpine), celery_worker, celery_beat services'),
+      B('Health checks on every service. docker-compose exec web python manage.py migrate + createsuperuser')
+    ]},
+    {d:'Wed',focus:'Settings split + python-decouple',tasks:[
+      W('Dennis Ivy — Django settings split (base/dev/prod) + python-decouple',L('YouTube',U.di)),
+      P('config/settings/base.py + dev.py + prod.py. All secrets in .env via python-decouple. .env.example file'),
+      R('python-decouple docs — config(), Csv(), Choices(), never use os.environ.get() directly',L('decouple',U.decouple))
+    ]},
+    {d:'Thu',focus:'PostgreSQL tuning + static files',tasks:[
+      P('PostgreSQL: CONN_MAX_AGE=60, CONN_HEALTH_CHECKS=True (Django 4.1+), proper INDEX on frequently queried fields'),
+      B('WhiteNoise: CompressedManifestStaticFilesStorage for cache-busting. collectstatic in Dockerfile'),
+      R('WhiteNoise docs — compress + cache-forever mode, CDN serving, ETag support',L('WhiteNoise',U.wn))
+    ]},
+    {d:'Fri',focus:'Full stack test + deploy checklist',tasks:[
+      B('Dockerize Bavaria ERP: all services, settings split, .env.example, health checks, collectstatic'),
+      V('Destroy + rebuild from scratch. Time it. Document every issue. Verify all services start healthy'),
+      R('Django deployment checklist — run through every item. Fix anything flagged',L('Django Checklist',U.dj_deploy))
+    ]}
+  ]},
+  {w:18,topic:'Nginx + Gunicorn + SSL + Monitoring',goal:'Production VPS deployment with hardened web server, SSL/TLS, and Sentry monitoring',ver:'Nginx 1.25+',days:[
+    {d:'Mon',focus:'Gunicorn workers + config',tasks:[
+      W('Dennis Ivy — Gunicorn with Django: workers, timeout, graceful reload',L('YouTube',U.di)),
+      P('gunicorn config.py file: workers=(2*cpu_count)+1, worker_class=gthread, timeout=30, max_requests=1000'),
+      R('Gunicorn docs — worker types: sync, gthread, gevent, uvicorn. max_requests_jitter prevents thundering herd',L('Gunicorn Docs',U.gunicorn))
+    ]},
+    {d:'Tue',focus:'Nginx reverse proxy + gzip',tasks:[
+      W('Dennis Ivy — Nginx configuration for Django in production',L('YouTube',U.di)),
+      P('nginx.conf: upstream gunicorn, proxy_pass, /static/ and /media/ served directly by Nginx'),
+      B('Add: gzip_types, proxy headers (X-Real-IP, X-Forwarded-For), client_max_body_size for file uploads')
+    ]},
+    {d:'Wed',focus:'SSL + security headers + SSL Labs A+',tasks:[
+      W('Certbot + Nginx SSL — Let\'s Encrypt on Ubuntu VPS',L('Certbot Docs',U.certbot)),
+      P('certbot --nginx, verify auto-renewal, test SSL Labs — target A+ rating for your domain'),
+      B('Security headers: HSTS preload, CSP, X-Frame-Options DENY, X-Content-Type-Options in both Nginx + Django')
+    ]},
+    {d:'Thu',focus:'Sentry + structured logging',tasks:[
+      W('Very Academy — Django structured logging + production configuration',L('YouTube',U.va)),
+      P('LOGGING config: console handler for dev, rotating file handler for prod. level=WARNING in production'),
+      R('Sentry Django docs — SDK install, DSN, release tracking, performance monitoring, error grouping',L('Sentry Docs',U.sentry))
+    ]},
+    {d:'Fri',focus:'Deploy to live VPS',tasks:[
+      B('Deploy blog project to Hetzner/DigitalOcean VPS (€4/mo): docker-compose up -d with production settings'),
+      V('Production checklist: DEBUG=False, ALLOWED_HOSTS set, HTTPS working, static files serving, Sentry receiving'),
+      P('Incident drill: inject 500 error, trace in Sentry, fix it, redeploy, verify resolved in Sentry')
+    ]}
+  ]},
+  {w:19,topic:'CI/CD + GitHub Actions + Capstone',goal:'Automate testing and deployment. Prove you are production-ready.',ver:'GitHub Actions',days:[
+    {d:'Mon',focus:'GitHub Actions — CI pipeline',tasks:[
+      W('GitHub Actions — Python CI: test pipeline, postgres service, matrix strategy',L('GitHub Docs',U.gh_ci)),
+      P('ci.yml: on push/PR, python matrix [3.11, 3.12], postgres service container, migrate, pytest, coverage'),
+      B('Add: ruff lint step, black --check format step, fail if coverage < 80%. Enforce on all PRs')
+    ]},
+    {d:'Tue',focus:'Automated CD + health checks',tasks:[
+      P('deploy.yml: SSH into VPS on merge to main, git pull, docker-compose up --build -d, python manage.py migrate'),
+      B('Post-deploy health check: curl /health/ — returns {status: ok, db: ok, cache: ok}. Fail workflow if not 200'),
+      B('Rollback step: if health check fails, re-deploy previous image tag automatically + Slack alert')
+    ]},
+    {d:'Wed',focus:'Performance + security audit',tasks:[
+      P('python manage.py check --deploy — fix EVERY single warning before deploying. No exceptions'),
+      B('Locust load test: 100 concurrent users against your API. Identify slowest endpoint. Add caching to fix it'),
+      R('Django security docs — CSRF, XSS, SQL injection (ORM protects you), clickjacking, HTTPS, SECRET_KEY rotation',L('Django Security',U.dj_sec))
+    ]},
+    {d:'Thu',focus:'Bavaria ERP — production ready',tasks:[
+      B('Apply complete production stack to Bavaria ERP: Docker + Nginx + Gunicorn + SSL + Sentry + CI/CD pipeline'),
+      V('Write deployment runbook: step-by-step that any team member can follow without you present'),
+      P('Rollback drill on Bavaria ERP: bad deploy → Sentry alert → rollback → verify clean — time it')
+    ]},
+    {d:'Fri',focus:'Final capstone',tasks:[
+      B('CAPSTONE: Build mini ERP module in 1 day — Staff model, Leave API (DRF+JWT), Celery leave approval notification'),
+      B('Requirements: AbstractBaseUser, ModelViewSet+Router, IsProjectMember permission, drf-spectacular, 85%+ coverage, Docker'),
+      V('Deploy it live. Add GitHub link to your profile. This is your portfolio piece. You are production-ready.')
+    ]}
+  ]}
+]}
+];
+
+let sel={p:0,w:0};
+let tabRes={};
+let open={};
+let chk={};
+
+function render(){renderSb();renderMn();}
+
+function renderSb(){
+  let h='';
+  phases.forEach((ph,pi)=>{
+    h+=`<div class="sb-ph">${ph.label.replace(' — ',' / ')}</div>`;
+    ph.weeks.forEach((wk,wi)=>{
+      const on=sel.p===pi&&sel.w===wi;
+      h+=`<button class="sb-w${on?' on':''}" onclick="go(${pi},${wi})"><span class="sb-dot" style="background:${ph.dot}"></span><span><b>W${wk.w}</b>&nbsp;${wk.topic.split('+')[0].split('—')[0].trim().substring(0,16)}</span></button>`;
+    });
+  });
+  document.getElementById('sb').innerHTML=h;
+}
+
+function renderMn(){
+  const ph=phases[sel.p];
+  const wk=ph.weeks[sel.w];
+  const total=wk.days.reduce((a,d)=>a+d.tasks.length,0);
+  const done=countDone(sel.p,sel.w);
+  const pct=total>0?Math.round(done/total*100):0;
+  const isRes=!!tabRes[`${sel.p}-${sel.w}`];
+
+  let h=`<div class="hd">
+    <div class="hd-top">
+      <span class="badge" style="background:${ph.tb};color:${ph.tt}">${ph.label}</span>
+      <span class="badge" style="background:#FEF3C7;color:#92400E">${wk.ver}</span>
+    </div>
+    <div class="hd-title">Week ${wk.w} — ${wk.topic}</div>
+    <div class="hd-goal">${wk.goal}</div>
+    <div class="hd-pb"><div class="hd-pf" id="pf" style="width:${pct}%;background:${ph.dot}"></div></div>
+    <div class="hd-stat" id="ps">${done}/${total} tasks complete</div>
+  </div>
+  <div class="tabs">
+    <button class="tab${!isRes?' on':''}" onclick="setTab(false)">Daily Schedule</button>
+    <button class="tab${isRes?' on':''}" onclick="setTab(true)">Books &amp; Resources</button>
+  </div>`;
+
+  if(!isRes){
+    h+=`<div class="days">`;
+    wk.days.forEach((day,di)=>{
+      const dk=`${sel.p}-${sel.w}-${di}`;
+      const isOpen=!!open[dk];
+      h+=`<div class="dc"><div class="dh" onclick="togDay('${dk}')"><span class="dn">${day.d}</span><span class="df">${day.focus}</span><span style="font-size:11px;color:var(--color-text-secondary)">${isOpen?'▲':'▼'}</span></div>`;
+      h+=`<div class="db" id="bd${dk}" style="display:${isOpen?'block':'none'}">`;
+      day.tasks.forEach((task,ti)=>{
+        const tk=`${dk}-${ti}`;
+        const isdone=!!chk[tk];
+        h+=`<div class="task"><div class="tcb${isdone?' ok':''}" id="c${tk}" onclick="tick('${tk}')">${isdone?'✓':''}</div><span class="ttype ${task.c}">${task.t}</span><div class="tbody"><div class="ttext${isdone?' ok':''}" id="x${tk}">${task.text}</div>`;
+        if(task.links&&task.links.length){
+          h+=`<div class="tlinks">`;
+          task.links.forEach(lk=>{if(lk&&lk[1])h+=`<a class="tlink" href="${lk[1]}" target="_blank">↗ ${lk[0]}</a>`;});
+          h+=`</div>`;
+        }
+        h+=`</div></div>`;
+      });
+      h+=`</div></div>`;
+    });
+    h+=`</div>`;
+  } else {
+    const res=ph.res;
+    h+=`<div class="res">`;
+    if(res.books&&res.books.length){h+=`<div class="rs-title">Books</div><div class="rg">`;res.books.forEach(rc=>h+=card(rc));h+=`</div>`;}
+    if(res.docs&&res.docs.length){h+=`<div class="rs-title">Official Documentation</div><div class="rg">`;res.docs.forEach(rc=>h+=card(rc));h+=`</div>`;}
+    if(res.sites&&res.sites.length){h+=`<div class="rs-title">Best Learning Sites</div><div class="rg">`;res.sites.forEach(rc=>h+=card(rc));h+=`</div>`;}
+    h+=`<div class="tip-box">${TIPS[sel.p]}</div></div>`;
+  }
+  document.getElementById('mn').innerHTML=h;
+}
+
+function card(rc){
+  return`<div class="rc"><div class="rc-type">${rc.type}</div><div class="rc-name">${rc.name}</div><div class="rc-desc">${rc.desc}</div><a href="${rc.url}" target="_blank">Open &rarr;</a></div>`;
+}
+
+function go(pi,wi){sel={p:pi,w:wi};render();}
+function setTab(isRes){tabRes[`${sel.p}-${sel.w}`]=isRes;renderMn();}
+function togDay(dk){open[dk]=!open[dk];renderMn();}
+
+function tick(tk){
+  chk[tk]=!chk[tk];
+  const c=document.getElementById('c'+tk);
+  const x=document.getElementById('x'+tk);
+  if(c){c.className='tcb'+(chk[tk]?' ok':'');c.textContent=chk[tk]?'✓':'';}
+  if(x)x.className='ttext'+(chk[tk]?' ok':'');
+  const ph=phases[sel.p];const wk=ph.weeks[sel.w];
+  const total=wk.days.reduce((a,d)=>a+d.tasks.length,0);
+  const done=countDone(sel.p,sel.w);
+  const pct=total>0?Math.round(done/total*100):0;
+  const pf=document.getElementById('pf');
+  const ps=document.getElementById('ps');
+  if(pf)pf.style.width=pct+'%';
+  if(ps)ps.textContent=done+'/'+total+' tasks complete';
+}
+
+function countDone(pi,wi){
+  const wk=phases[pi].weeks[wi];
+  let c=0;
+  wk.days.forEach((d,di)=>d.tasks.forEach((_,ti)=>{if(chk[`${pi}-${wi}-${di}-${ti}`])c++;}));
+  return c;
+}
+
+
+render();
+</script>
+</body>
+</html>
